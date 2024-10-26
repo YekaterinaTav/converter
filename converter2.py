@@ -22,10 +22,16 @@ def exchange():
             mb.showerror('Ошибка', f'Произошла ошибка{error}')
 
 
-def update_cur_label(event):
+def update_b_label(event):
+    code = b_combobox.get()
+    name_ru = cur[code]
+    b_label.config(text=name_ru)
+
+
+def update_t_label(event):
     code = t_combobox.get()
     name_ru = cur[code]
-    cur_label.config(text=name_ru)
+    t_label.config(text=name_ru)
 
 
 window = Tk()
@@ -50,16 +56,19 @@ cur = {
 
 Label(text='Выберите код валюты').pack(pady=10)
 b_combobox = ttk.Combobox(values=list(cur.keys()))
-# b_combobox.bind('<<ComboboxSelected>>', update_cur_label)
+b_combobox.bind('<<ComboboxSelected>>', update_b_label)
 b_combobox.pack(pady=10)
+
+b_label = Label()
+b_label.pack()
 
 Label(text='Выберите код валюты').pack(pady=20)
 t_combobox = ttk.Combobox(values=list(cur.keys()))
-t_combobox.bind('<<ComboboxSelected>>', update_cur_label)
+t_combobox.bind('<<ComboboxSelected>>', update_t_label)
 t_combobox.pack(pady=10)
 
-cur_label = Label()
-cur_label.pack()
+t_label = Label()
+t_label.pack()
 
 Button(text='Получить курс обмена', command=exchange).pack(pady=10)
 
